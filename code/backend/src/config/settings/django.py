@@ -4,8 +4,6 @@ import os
 from decouple import config
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')

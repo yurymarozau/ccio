@@ -1,7 +1,7 @@
 import os
 from decouple import config
 
-from config.settings.django import BASE_DIR
+from config.settings.common import BASE_DIR
 
 
 AWS_HEADERS = {
