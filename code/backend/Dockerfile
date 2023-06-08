@@ -27,7 +27,7 @@ ARG APP_DIR=/home/${APP_USER}/ccio
 RUN mkdir ${APP_DIR} && chown ${APP_USER}:${APP_USER} ${APP_DIR}
 
 # Copy requirements. application code, wait-for-it.sh script to the container
-COPY --chown=${APP_USER}:${APP_USER} ./requirements.txt ./src/ ./wait-for-it.sh ${APP_DIR}
+COPY --chown=${APP_USER}:${APP_USER} ./requirements.txt ./src/ ${APP_DIR}
 RUN chmod +x ${APP_DIR}/wait-for-it.sh
 
 # Install python requirements
