@@ -16,4 +16,5 @@ jobs:
       - name: Build test container
         run: docker compose build test
       - name: Start tests
-        run: docker run --env-file .env ccio-api pytest
+#        run: docker run --env-file .env ccio-api pytest
+        run: docker compose up test
