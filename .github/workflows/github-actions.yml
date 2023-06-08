@@ -15,6 +15,11 @@ jobs:
         run: cp example.env .env
       - name: Build test container
         run: docker compose build test
+      - name: Start database
+        run: docker compose up db
+      - name: Start redis
+        run: docker compose up redis
+      - name: Start migrations
+        run: docker run --env-file .env ccio-api python3 manage.py migrate
       - name: Start tests
-#        run: docker run --env-file .env ccio-api pytest
-        run: docker compose up test
+        run: docker run --env-file .env ccio-api pytest
