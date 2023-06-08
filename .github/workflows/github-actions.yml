@@ -24,6 +24,6 @@ jobs:
 #      - name: Start tests
 #        run: docker run --env-file .env ccio-api pytest
       - name: Start migrations
-        run: docker compose up db-migrator --exit-code-from
+        run: docker compose up db-migrator --exit-code-from db-migrator
       - name: Start tests
-        run: docker compose up test --exit-code-from
+        run: docker compose up test --exit-code-from test
