@@ -5,89 +5,15 @@ on: push
 #  pull_request:
 #    branches: [dev, prod]
 
-#jobs:
-#  container-job:
-#    runs-on: ubuntu-latest
-#    container: node:10.18-jessie
-#    services:
-#      postgres:
-#        image: postgres
-#        env:
-#          POSTGRES_PASSWORD: postgres
-#        options: >-
-#          --health-cmd pg_isready
-#          --health-interval 10s
-#          --health-timeout 5s
-#          --health-retries 5
-#
-#    steps:
-#      - name: Check out repository code
-#        uses: actions/checkout@v3
-#
-#      - name: Install dependencies
-#        run: pip3 install -r requirements.txt
-#
-#      - name: Connect to PostgreSQL
-#        run: node client.js
-#        env:
-#          POSTGRES_HOST: postgres
-#          POSTGRES_PORT: 5432
-
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: dev
     steps:
       - name: CCIO PR - ${{ github.event.pull_request.title }}
         uses: actions/checkout@v2
       - name: Create .env file
         run: cp example.env .env
-      - name: Build and launch test container
-        run: docker compose up test --build
-#        env:
-#          APP_USER: ${{ env.APP_USER }}
-#          APP_NAME: ${{ env.APP_NAME }}
-#          APP_DIR: ${{ env.APP_DIR }}
-#
-#          WFI_TIMEOUT: ${{ env.WFI_TIMEOUT }}
-#
-#          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-#          DJANGO_SETTINGS_MODULE: ${{ env.DJANGO_SETTINGS_MODULE }}
-#          DEBUG: ${{ env.DEBUG }}
-#          ALLOWED_HOSTS: ${{ env.ALLOWED_HOSTS }}
-#          ENVIRONMENT: ${{ env.ENVIRONMENT }}
-#          ENABLE_DOCS: ${{ env.ENABLE_DOCS }}
-#          REQUEST_TIME_LOG_THRESHOLD: ${{ env.REQUEST_TIME_LOG_THRESHOLD }}
-#
-#          DATABASE_ENGINE: ${{ env.DATABASE_ENGINE }}
-#          DATABASE_NAME: ${{ env.DATABASE_NAME }}
-#          DATABASE_USER: ${{ env.DATABASE_USER }}
-#          DATABASE_PASSWORD: ${{ env.DATABASE_PASSWORD }}
-#          DATABASE_HOST: ${{ env.DATABASE_HOST }}
-#          DATABASE_PORT: ${{ env.DATABASE_PORT }}
-#          DATABASE_ENVIRONMENT: ${{ env.DATABASE_ENVIRONMENT }}
-#
-#          ASGI_THREADS: ${{ env.ASGI_THREADS }}
-#
-#          ACCESS_TOKEN_LIFETIME: ${{ env.ACCESS_TOKEN_LIFETIME }}
-#          REFRESH_TOKEN_LIFETIME: ${{ env.REFRESH_TOKEN_LIFETIME }}
-#
-#          REDIS_HOST: ${{ env.REDIS_HOST }}
-#          REDIS_PORT: ${{ env.REDIS_PORT }}
-#
-#          BROKER_HOST: ${{ env.BROKER_HOST }}
-#          BROKER_PORT: ${{ env.BROKER_PORT }}
-#          BROKER_DB: ${{ env.BROKER_DB }}
-#
-#          CHANNEL_LAYER_DB: ${{ env.CHANNEL_LAYER_DB }}
-#
-#          PUT_STATIC_TO_S3: ${{ env.PUT_STATIC_TO_S3 }}
-#
-#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          AWS_SES_REGION_NAME: ${{ env.AWS_SES_REGION_NAME }}
-#          AWS_STORAGE_BUCKET_NAME: ${{ env.AWS_STORAGE_BUCKET_NAME }}
-#          AWS_S3_CUSTOM_DOMAIN: ${{ env.AWS_S3_CUSTOM_DOMAIN }}
-#
-#          USE_SENTRY: ${{ env.USE_SENTRY }}
-#          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      - name: Build test container
+        run: docker compose build test
+      - name: Start tests
+        run: docker run test --env-file=.env
