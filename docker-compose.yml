@@ -123,6 +123,23 @@ services:
     depends_on:
       - redis
 
+  test:
+    container_name: test
+    image: ccio-api
+    build:
+      context: ./code/backend
+    volumes:
+      - ./code/backend/src/:${APP_DIR}/
+    env_file: ./.env
+    entrypoint: []
+    command: ['./wait-for-it.sh', '${DATABASE_HOST}:${DATABASE_PORT}', '--timeout=${WFI_TIMEOUT}', '--',
+              'pytest']
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+      - redis
+
 volumes:
   db_data:
     name: ccio_db_data_$DATABASE_ENVIRONMENT
