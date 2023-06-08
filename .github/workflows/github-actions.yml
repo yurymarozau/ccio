@@ -45,3 +45,47 @@ jobs:
         env:
           APP_USER: ${{ env.APP_USER }}
           APP_NAME: ${{ env.APP_NAME }}
+          APP_DIR: ${{ env.APP_DIR }}
+
+          WFI_TIMEOUT: ${{ env.WFI_TIMEOUT }}
+
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          DJANGO_SETTINGS_MODULE: ${{ env.DJANGO_SETTINGS_MODULE }}
+          DEBUG: ${{ env.DEBUG }}
+          ALLOWED_HOSTS: ${{ env.ALLOWED_HOSTS }}
+          ENVIRONMENT: ${{ env.ENVIRONMENT }}
+          ENABLE_DOCS: ${{ env.ENABLE_DOCS }}
+          REQUEST_TIME_LOG_THRESHOLD: ${{ env.REQUEST_TIME_LOG_THRESHOLD }}
+
+          DATABASE_ENGINE: ${{ env.DATABASE_ENGINE }}
+          DATABASE_NAME: ${{ env.DATABASE_NAME }}
+          DATABASE_USER: ${{ env.DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ env.DATABASE_PASSWORD }}
+          DATABASE_HOST: ${{ env.DATABASE_HOST }}
+          DATABASE_PORT: ${{ env.DATABASE_PORT }}
+          DATABASE_ENVIRONMENT: ${{ env.DATABASE_ENVIRONMENT }}
+
+          ASGI_THREADS: ${{ env.ASGI_THREADS }}
+
+          ACCESS_TOKEN_LIFETIME: ${{ env.ACCESS_TOKEN_LIFETIME }}
+          REFRESH_TOKEN_LIFETIME: ${{ env.REFRESH_TOKEN_LIFETIME }}
+
+          REDIS_HOST: ${{ env.REDIS_HOST }}
+          REDIS_PORT: ${{ env.REDIS_PORT }}
+          
+          BROKER_HOST: ${{ env.BROKER_HOST }}
+          BROKER_PORT: ${{ env.BROKER_PORT }}
+          BROKER_DB: ${{ env.BROKER_DB }}
+          
+          CHANNEL_LAYER_DB: ${{ env.CHANNEL_LAYER_DB }}
+          
+          PUT_STATIC_TO_S3: ${{ env.PUT_STATIC_TO_S3 }}
+          
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SES_REGION_NAME: ${{ env.AWS_SES_REGION_NAME }}
+          AWS_STORAGE_BUCKET_NAME: ${{ env.AWS_STORAGE_BUCKET_NAME }}
+          AWS_S3_CUSTOM_DOMAIN: ${{ env.AWS_S3_CUSTOM_DOMAIN }}
+
+          USE_SENTRY: ${{ env.USE_SENTRY }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
