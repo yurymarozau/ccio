@@ -1,10 +1,9 @@
 name: CCIO
-#on:
+on: push
 #  push:
 #    branches: [dev, prod]
 #  pull_request:
 #    branches: [dev, prod]
-on: push
 
 #jobs:
 #  container-job:
@@ -37,7 +36,9 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
-      - uses: actions/checkout@v2
+      - name: CCIO PR - ${{ github.event.pull_request.title }}
+        uses: actions/checkout@v2
       - name: Build and launch test container
         run: docker-compose up test --build
