@@ -42,3 +42,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Build and launch test container
         run: docker-compose up test --build
+        env:
+          APP_USER: ${{ env.APP_USER }}
+          APP_NAME: ${{ env.APP_NAME }}
