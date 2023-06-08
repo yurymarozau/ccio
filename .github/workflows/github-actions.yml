@@ -14,6 +14,6 @@ jobs:
       - name: Create .env file
         run: cp example.env .env
       - name: Build test container
-        run: docker compose build test
+        run: docker compose build api
       - name: Start tests
-        run: docker run test --env-file=.env
+        run: docker run ccio-api --env-file .env pytest
