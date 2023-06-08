@@ -20,7 +20,7 @@ class SoftDeleteManager(models.Manager):
         return self.get_queryset().delete()
 
     def hard_delete(self):
-        return self.get_queryset().delete()
+        return self.get_queryset().hard_delete()
 
     def restore(self):
         return self.get_queryset().restore()
