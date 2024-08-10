@@ -116,8 +116,6 @@ services:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
     command: ['pytest']
-    ports:
-      - '8000:8000'
     depends_on:
       - db
       - redis
