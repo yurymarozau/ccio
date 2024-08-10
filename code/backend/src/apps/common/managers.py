@@ -1,26 +1,11 @@
 from django.db import models
 
-from apps.common.querysets import SoftDeleteQuerySet
-
-# ToDo: create hard delete manager with inheritance soft delete manager from hard
+from apps.common.querysets import HardDeleteQuerySet, SoftDeleteQuerySet
 
 
-class SoftDeleteManager(models.Manager):
-    def __init__(self, all_objects=False, *args, **kwargs):
-        self.all_objects = all_objects
-        super().__init__(*args, **kwargs)
-
+class HardDeleteManager(models.Manager):
     def get_queryset(self):
-        queryset = SoftDeleteQuerySet(self.model, using=self._db)
-        if self.all_objects:
-            return queryset
-        return queryset.filter(deleted_at=None)
-
-    def delete(self):
-        return self.get_queryset().delete()
-
-    def hard_delete(self):
-        return self.get_queryset().hard_delete()
+        return HardDeleteQuerySet(self.model, using=self._db)
 
     def restore(self):
         return self.get_queryset().restore()
@@ -30,3 +15,14 @@ class SoftDeleteManager(models.Manager):
 
     def deleted(self):
         return self.get_queryset().deleted()
+
+
+class SoftDeleteManager(HardDeleteManager):
+    def get_queryset(self):
+        return SoftDeleteQuerySet(self.model, using=self._db).alive()
+
+    def delete(self):
+        return self.get_queryset().delete()
+
+    def hard_delete(self):
+        return super().get_queryset().delete()
