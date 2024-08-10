@@ -9,8 +9,6 @@ schema_view = get_schema_view(
         default_version='v1',
     ),
     public=True,
-    authentication_classes=[authentication.SessionAuthentication],
-    permission_classes=[permissions.IsAdminUser],
 )
 
 

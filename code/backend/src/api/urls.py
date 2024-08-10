@@ -9,7 +9,6 @@ app_name = 'api'
 
 urlpatterns = [
     path('v1/', include(v1_urls.urlpatterns)),
-    path('health-check/', views.HealthCheck.as_view()),
     path('', views.ApiInfo.as_view()),
 ]
 
