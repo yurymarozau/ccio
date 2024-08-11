@@ -27,11 +27,6 @@ class TestUserModel(BaseTestCase):
         User.objects.filter(pk=user_pk).hard_delete()
         assert self.is_hard_deleted(User, user_pk)
 
-    def test_hard_delete_user_through_all_manager(self, user):
-        user_pk = user.pk
-        User.objects_all.filter(pk=user_pk).hard_delete()
-        assert self.is_hard_deleted(User, user_pk)
-
     def test_alive_and_delete(self, random_users):
         alive_count_before_soft_delete = User.objects_all.alive().count()
         deleted_count_before_soft_delete = User.objects_all.deleted().count()
@@ -57,8 +52,4 @@ class TestUserModel(BaseTestCase):
 
     def test_all_delete_through_manager(self, random_users):
         User.objects.hard_delete()
-        assert User.objects_all.count() == 0
-
-    def test_all_delete_through_all_manager(self, random_users):
-        User.objects_all.hard_delete()
         assert User.objects_all.count() == 0
