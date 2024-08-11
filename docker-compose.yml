@@ -1,4 +1,22 @@
 services:
+  web-ui:
+    container_name: web-ui
+    image: ccio-web-ui
+    platform: linux/amd64
+    build:
+      context: ./code/frontend
+      args:
+        APP_USER: ${APP_USER}
+        APP_DIR: ${APP_DIR}
+    volumes:
+      - ./code/frontend/scripts:${APP_DIR}/scripts
+      - ./code/frontend/src:${APP_DIR}/src
+    env_file: ./.env
+    entrypoint: []
+    command: ['./scripts/start_local.sh']
+    ports:
+      - '4200:4200'
+
   api:
     container_name: api
     image: ccio-api
