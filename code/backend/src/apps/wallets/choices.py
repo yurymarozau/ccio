@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 
 class WalletType(models.TextChoices):
     """
-    Determines is wallet's address EVM compatible or not.
+    Determines wallet's address type.
     """
-    EVM = 'OP', _('Open')
-    NON_EVM = 'CL', _('Closed')
+    EVM = 'EVM', _('EVM')
