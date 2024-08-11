@@ -9,13 +9,13 @@ services:
         APP_USER: ${APP_USER}
         APP_DIR: ${APP_DIR}
     volumes:
-      - ./code/frontend/scripts:${APP_DIR}/scripts
-      - ./code/frontend/src:${APP_DIR}/src
+      - node_modules:${APP_DIR}/node_modules
+      - ./code/frontend/:${APP_DIR}/
     env_file: ./.env
     entrypoint: []
     command: ['./scripts/start_local.sh']
     ports:
-      - '4200:4200'
+      - '5173:5173'
 
   api:
     container_name: api
@@ -142,3 +142,4 @@ volumes:
   db_data:
     name: ccio_db_data_$DATABASE_ENVIRONMENT
   redis_data:
+  node_modules:

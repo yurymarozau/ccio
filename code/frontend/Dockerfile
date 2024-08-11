@@ -28,20 +28,9 @@ RUN chmod +x  \
 # Set the working directory
 WORKDIR ${APP_DIR}
 
-RUN /bin/bash -c 'set -euo pipefail \
-    && BUILD_DEPS=" \
-    python3 \
-    build-essential \
-    git \
-    " \
-    && apt-get update && apt-get install -y --no-install-recommends $BUILD_DEPS \
-    && npm install -g @angular/cli@18.1.4 \
-    && npm install \
-    \
-    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $BUILD_DEPS \
-    && rm -rf /var/lib/apt/lists/*'
-
 # Change to a non-root user
 USER ${APP_USER}:${APP_USER}
+
+RUN npm install
 
 ENTRYPOINT ["./scripts/entrypoint.sh"]
