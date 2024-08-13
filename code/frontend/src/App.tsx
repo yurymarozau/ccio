@@ -1,13 +1,8 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import AppKit from "./AppKit.tsx";
+import { ReactElement } from 'react';
+import { Outlet } from 'react-router-dom';
 
-function App() {
-    return (
-        <AppKit/>
-    )
-}
+const App = (): ReactElement => {
+    return <Outlet/>;
+};
 
-export default App
+export default App;
