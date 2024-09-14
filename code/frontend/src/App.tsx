@@ -1,8 +1,15 @@
-import { ReactElement } from 'react';
+import React from 'react';
+import { AppKitProvider } from 'helpers/wagmi/config.tsx';
 import { Outlet } from 'react-router-dom';
 
-const App = (): ReactElement => {
-    return <Outlet/>;
-};
+class App extends React.Component {
+    render() {
+        return (
+            <AppKitProvider>
+                <Outlet/>
+            </AppKitProvider>
+        )
+    }
+}
 
 export default App;

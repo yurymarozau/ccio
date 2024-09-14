@@ -11,6 +11,13 @@ export default defineConfig({
     plugins: [tsconfigPaths(), react()],
     server: {
         host: '0.0.0.0',
+        proxy: {
+            '/api': {
+                target: process.env.FE_BE_HOST,
+                changeOrigin: true,
+            }
+        }
     },
     base: '/',
+    envPrefix: 'FE_'
 });

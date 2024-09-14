@@ -1,11 +1,12 @@
-import { http, createConfig } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
+import { WagmiProvider, http, createConfig } from 'wagmi';
 import { sepolia, arbitrumSepolia, lineaSepolia } from 'viem/chains';
 import { walletConnect, injected } from 'wagmi/connectors';
 import type { CreateConnectorFn } from '@wagmi/core'
 
-// const projectId = import.meta.env.WALLETCONNECT_PROJECT_ID;
-const projectId = '9181c8409e9b15913713c456b74335a7'
-if (!projectId) throw new Error('Project ID is undefined');
+const queryClient = new QueryClient();
+const projectId = import.meta.env.FE_WALLETCONNECT_PROJECT_ID;
 
 const metadata = {
     name: 'CCIO',
@@ -40,3 +41,16 @@ export const config = createConfig({
         [lineaSepolia.id]: http(),
     },
 });
+
+export class AppKitProvider extends React.Component {
+    render() {
+        return (
+            <WagmiProvider
+                config={config}
+                reconnectOnMount={false}
+            >
+                <QueryClientProvider client={queryClient}>{this.props.children}</QueryClientProvider>
+            </WagmiProvider>
+        )
+    }
+}
