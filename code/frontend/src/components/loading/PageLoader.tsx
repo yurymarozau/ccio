@@ -1,5 +1,5 @@
+import { Box, CircularProgress, Stack, StackOwnProps, useTheme } from '@mui/material';
 import { ReactElement } from 'react';
-import { Box, Stack, useTheme, StackOwnProps, CircularProgress } from '@mui/material';
 
 const PageLoader = (props: StackOwnProps): ReactElement => {
     const theme = useTheme();

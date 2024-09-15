@@ -1,12 +1,12 @@
-import { ReactElement } from 'react';
-import { Link, List, Toolbar } from '@mui/material';
-import navItems from 'data/nav-items';
-import SimpleBar from 'simplebar-react';
-import NavItem from './NavItem';
-import { drawerCloseWidth, drawerOpenWidth } from '..';
-import Image from 'components/base/Image';
 import logoWithText from '/logo-with-text.png';
+import { Link, List, Toolbar } from '@mui/material';
+import Image from 'components/base/Image';
+import navItems from 'data/nav-items';
+import { ReactElement } from 'react';
 import { rootPaths } from 'routes/paths';
+import SimpleBar from 'simplebar-react';
+import { drawerCloseWidth, drawerOpenWidth } from '..';
+import NavItem from './NavItem';
 
 const Sidebar = ({open}: { open: boolean }): ReactElement => {
     return (

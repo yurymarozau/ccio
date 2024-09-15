@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React from 'react';
-import { WagmiProvider, http, createConfig } from 'wagmi';
-import { sepolia, arbitrumSepolia, lineaSepolia } from 'viem/chains';
-import { walletConnect, injected } from 'wagmi/connectors';
 import type { CreateConnectorFn } from '@wagmi/core'
+import React from 'react';
+import { arbitrumSepolia, lineaSepolia, sepolia } from 'viem/chains';
+import { createConfig, http, WagmiProvider } from 'wagmi';
+import { injected, walletConnect } from 'wagmi/connectors';
 
 const queryClient = new QueryClient();
 const projectId = import.meta.env.FE_WALLETCONNECT_PROJECT_ID;

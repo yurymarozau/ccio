@@ -1,9 +1,7 @@
-import { lazy, Suspense, ReactElement, PropsWithChildren } from 'react';
-import { Outlet, RouteObject, RouterProps, createBrowserRouter } from 'react-router-dom';
-
 import PageLoader from 'components/loading/PageLoader';
 import Splash from 'components/loading/Splash';
-import { rootPaths } from './paths';
+import { lazy, PropsWithChildren, ReactElement, Suspense } from 'react';
+import { createBrowserRouter, Outlet, RouteObject, RouterProps } from 'react-router-dom';
 import paths from './paths';
 
 const App = lazy<() => ReactElement>(() => import('App'));

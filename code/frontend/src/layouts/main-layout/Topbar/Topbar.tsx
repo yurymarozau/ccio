@@ -1,14 +1,9 @@
-import {
-    Stack,
-    AppBar,
-    Toolbar,
-    IconButton,
-} from '@mui/material';
+import { AppBar, IconButton, Stack, Toolbar, } from '@mui/material';
 import IconifyIcon from 'components/base/IconifyIcon';
+import { useBreakpoints } from 'providers/BreakpointsProvider';
 import { ReactElement } from 'react';
 import { drawerCloseWidth, drawerOpenWidth } from '..';
 import WalletConnectAppKit from './WalletConnectAppKit';
-import { useBreakpoints } from 'providers/BreakpointsProvider';
 
 const Topbar = ({
                     open,
@@ -66,7 +61,7 @@ const Topbar = ({
                     mr={3.75}
                     flex="1 1 20%"
                 >
-                    <WalletConnectAppKit />
+                    <WalletConnectAppKit/>
                 </Stack>
             </Toolbar>
         </AppBar>

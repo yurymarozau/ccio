@@ -1,8 +1,8 @@
-import { useState, ReactElement, PropsWithChildren } from 'react';
 import { Box, Drawer, Toolbar } from '@mui/material';
-import Topbar from './Topbar/Topbar';
-import Sidebar from './Sidebar/Sidebar';
+import { PropsWithChildren, ReactElement, useState } from 'react';
 import Footer from './Footer/Footer';
+import Sidebar from './Sidebar/Sidebar';
+import Topbar from './Topbar/Topbar';
 
 export const drawerOpenWidth = 240;
 export const drawerCloseWidth = 110;

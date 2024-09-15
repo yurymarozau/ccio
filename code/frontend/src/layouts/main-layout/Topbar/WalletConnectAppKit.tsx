@@ -19,7 +19,7 @@ createWeb3Modal(
 
 
 class WalletConnectAppKit extends React.Component {
-    render () {
+    render() {
         return (
             <Stack
                 direction='row'

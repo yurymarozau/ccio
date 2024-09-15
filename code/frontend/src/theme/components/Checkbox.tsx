@@ -1,8 +1,8 @@
 import { Theme } from '@mui/material';
 import { Components } from '@mui/material/styles/components';
-import CheckBoxBlankIcon from 'components/icons/CheckBoxBlankIcon';
-import CheckBoxCheckedIcon from 'components/icons/CheckBoxCheckedIcon';
-import CheckBoxIndeterminateIcon from 'components/icons/CheckBoxIndeterminateIcon';
+import CheckBoxBlankIcon from 'theme/components/icons/CheckBoxBlankIcon';
+import CheckBoxCheckedIcon from 'theme/components/icons/CheckBoxCheckedIcon';
+import CheckBoxIndeterminateIcon from 'theme/components/icons/CheckBoxIndeterminateIcon';
 
 const Checkbox: Components<Omit<Theme, 'components'>>['MuiCheckbox'] = {
     defaultProps: {
