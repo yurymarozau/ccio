@@ -12,7 +12,7 @@ const metadata = {
     name: 'CCIO',
     description: 'CCIO - Crypto Chart IO',
     url: 'ccio',
-    icons: ['https://avatars.githubusercontent.com/u/37784886'],
+    icons: [],
 };
 
 const connectors: CreateConnectorFn[] = [
@@ -47,7 +47,7 @@ export class AppKitProvider extends React.Component {
         return (
             <WagmiProvider
                 config={config}
-                reconnectOnMount={false}
+                reconnectOnMount={true}
             >
                 <QueryClientProvider client={queryClient}>{this.props.children}</QueryClientProvider>
             </WagmiProvider>
