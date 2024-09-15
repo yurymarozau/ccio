@@ -1,3 +1,5 @@
 #!/bin/bash
 
-$1
+ENV_FILE=".env"
+
+printenv > "$ENV_FILE" && $1

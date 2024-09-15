@@ -15,7 +15,7 @@ services:
     entrypoint: []
     command: ['./scripts/start_local.sh']
     ports:
-      - '4200:4200'
+      - '5173:5173'
 
   api:
     container_name: api

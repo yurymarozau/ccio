@@ -1,4 +1,4 @@
-FROM node:22.8.0-slim
+FROM node:22.6.0-slim
 
 # Create a group and user to run app
 ARG APP_USER=appuser
