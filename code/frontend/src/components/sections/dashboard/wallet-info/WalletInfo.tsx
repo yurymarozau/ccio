@@ -1,12 +1,20 @@
-import { Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import axios from 'axios';
 import React from 'react';
 
-import { useAccount, useAccountEffect } from 'wagmi'
+import { useAccount, useAccountEffect, useSignMessage } from 'wagmi'
 
+
+async function handleSignMessage({ signMessageAsync }) {
+    let response: any = await signMessageAsync({
+        message: Date.now().toString(),
+    });
+    console.log(response);
+}
 
 function WalletInfoFunction() {
-    const {isConnected, address, chainId} = useAccount()
+    const { signMessageAsync } = useSignMessage();
+    const { isConnected, address, chainId } = useAccount();
     useAccountEffect({
         onConnect(data) {
             axios.get('/api/');
@@ -14,18 +22,25 @@ function WalletInfoFunction() {
         onDisconnect() {
             axios.get('/api/v1/health-check/');
         },
-    })
+    });
     return (
-        <div>
-            {isConnected ? (
-                <div>
-                    <p>Address: {address}</p>
-                    <p>Chain ID: {chainId}</p>
-                </div>
-            ) : (
-                <p>Not connected</p>
-            )}
-        </div>
+        <>
+            <div>
+                {isConnected ? (
+                    <div>
+                        <p>Address: {address}</p>
+                        <p>Chain ID: {chainId}</p>
+                        <br/>
+                        <div>
+                            <Button onClick={() => handleSignMessage({ signMessageAsync })}>Sign</Button>
+                        </div>
+                    </div>
+
+                ) : (
+                    <p>Not connected</p>
+                )}
+            </div>
+        </>
     )
 }
 
