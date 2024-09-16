@@ -37,7 +37,6 @@ if DEBUG:
     ]
 
 MIDDLEWARE = [
-    'apps.common.middlewares.MonitoringLongTimeQueriesMiddleware',
     'apps.common.middlewares.TrailingSlashAppendingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
