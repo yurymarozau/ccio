@@ -9,7 +9,7 @@ app_name = 'api'
 
 urlpatterns = [
     path('v1/', include(v1_urls.urlpatterns)),
-    path('', views.ApiInfo.as_view()),
+    path('', views.ApiInfoAPIView.as_view()),
 ]
 
 if settings.ENABLE_DOCS:
