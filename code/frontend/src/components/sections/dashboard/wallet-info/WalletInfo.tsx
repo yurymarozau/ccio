@@ -16,7 +16,11 @@ function WalletInfoFunction() {
     const { isConnected, address, chainId } = useAccount();
     useAccountEffect({
         onConnect(data) {
-            // axios.get('/api/');
+            // axios.get('/api/v1/auth/web3/siwe/nonce/').then(
+            //     (response) => {
+            //         console.log(response.ok);
+            //     }
+            // );
         },
         onDisconnect() {
             // axios.get('/api/v1/health-check/');
