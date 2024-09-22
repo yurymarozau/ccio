@@ -1,6 +1,5 @@
 import { Button, Paper, Typography } from '@mui/material';
 import axios from 'axios';
-import React from 'react';
 
 import { useAccount, useAccountEffect, useSignMessage } from 'wagmi'
 
@@ -44,16 +43,12 @@ function WalletInfoFunction() {
     )
 }
 
-class WalletInfo extends React.Component {
-    render() {
-        return (
-            <Paper sx={{p: {xs: 4, sm: 8}, height: 1}}>
-                <Typography variant="h4" color="common.white" mb={1.25}>
-                    <WalletInfoFunction/>
-                </Typography>
-            </Paper>
-        )
-    }
+export default function WalletInfo() {
+    return (
+        <Paper sx={{p: {xs: 4, sm: 8}, height: 1}}>
+            <Typography variant="h4" color="common.white" mb={1.25}>
+                <WalletInfoFunction/>
+            </Typography>
+        </Paper>
+    )
 }
-
-export default WalletInfo;

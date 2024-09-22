@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { baseSepolia, sepolia } from '@reown/appkit/networks'
-import React from 'react';
 import { http, WagmiProvider } from 'wagmi';
 import { injected, walletConnect } from 'wagmi/connectors';
 
@@ -36,15 +35,13 @@ export const wagmiAdapter = new WagmiAdapter({
 });
 
 
-export class AppKitProvider extends React.Component {
-    render() {
-        return (
-            <WagmiProvider
-                config={wagmiAdapter.wagmiConfig}
-                reconnectOnMount={true}
-            >
-                <QueryClientProvider client={queryClient}>{this.props.children}</QueryClientProvider>
-            </WagmiProvider>
-        )
-    }
+export function WagmiContextProvider({ children }) {
+    return (
+        <WagmiProvider
+            config={wagmiAdapter.wagmiConfig}
+            reconnectOnMount={true}
+        >
+            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </WagmiProvider>
+    )
 }
