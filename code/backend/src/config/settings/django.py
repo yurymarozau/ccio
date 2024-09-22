@@ -22,7 +22,7 @@ INSTALLED_APPS = [
 
     # Dependencies
     'rest_framework',
-    'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt',
 
     'channels',
 
@@ -69,9 +69,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
 
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ),
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -90,13 +90,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 AUTH_USER_MODEL = 'apps.User'
 
-ACCESS_TOKEN_LIFETIME = config('ACCESS_TOKEN_LIFETIME', cast=int)
-REFRESH_TOKEN_LIFETIME = config('REFRESH_TOKEN_LIFETIME', cast=int)
-SIMPLE_JWT = {
-    'USER_ID_FIELD': 'uuid',
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=ACCESS_TOKEN_LIFETIME),
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(minutes=REFRESH_TOKEN_LIFETIME),
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
-    'AUTH_HEADER_TYPES': ('JWT',)
-}
+# ACCESS_TOKEN_LIFETIME = config('ACCESS_TOKEN_LIFETIME', cast=int)
+# REFRESH_TOKEN_LIFETIME = config('REFRESH_TOKEN_LIFETIME', cast=int)
+# SIMPLE_JWT = {
+#     'USER_ID_FIELD': 'uuid',
+#     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=ACCESS_TOKEN_LIFETIME),
+#     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(minutes=REFRESH_TOKEN_LIFETIME),
+#     'ALGORITHM': 'HS256',
+#     'SIGNING_KEY': SECRET_KEY,
+#     'AUTH_HEADER_TYPES': ('JWT',)
+# }
