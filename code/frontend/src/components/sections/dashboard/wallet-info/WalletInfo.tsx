@@ -1,10 +1,9 @@
 import { Button, Paper, Typography } from '@mui/material';
-import axios from 'axios';
 
 import { useAccount, useAccountEffect, useSignMessage } from 'wagmi'
 
 
-async function handleSignMessage({ signMessageAsync }) {
+async function handleSignMessage({signMessageAsync}) {
     let response: any = await signMessageAsync({
         message: Date.now().toString(),
     });
@@ -12,8 +11,8 @@ async function handleSignMessage({ signMessageAsync }) {
 }
 
 function WalletInfoFunction() {
-    const { signMessageAsync } = useSignMessage();
-    const { isConnected, address, chainId } = useAccount();
+    const {signMessageAsync} = useSignMessage();
+    const {isConnected, address, chainId} = useAccount();
     useAccountEffect({
         onConnect(data) {
             // axios.get('/api/v1/auth/web3/siwe/nonce/').then(
@@ -35,7 +34,7 @@ function WalletInfoFunction() {
                         <p>Chain ID: {chainId}</p>
                         <br/>
                         <div>
-                            <Button onClick={() => handleSignMessage({ signMessageAsync })}>Sign</Button>
+                            <Button onClick={() => handleSignMessage({signMessageAsync})}>Sign</Button>
                         </div>
                     </div>
 

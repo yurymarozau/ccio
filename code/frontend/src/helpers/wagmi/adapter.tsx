@@ -1,8 +1,7 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { baseSepolia, sepolia } from '@reown/appkit/networks'
-import { http, WagmiProvider } from 'wagmi';
-import { injected, walletConnect } from 'wagmi/connectors';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { WagmiProvider } from 'wagmi';
 
 const queryClient = new QueryClient();
 const projectId = import.meta.env.FE_WALLETCONNECT_PROJECT_ID;
@@ -35,7 +34,7 @@ export const wagmiAdapter = new WagmiAdapter({
 });
 
 
-export function WagmiContextProvider({ children }) {
+export function WagmiContextProvider({children}) {
     return (
         <WagmiProvider
             config={wagmiAdapter.wagmiConfig}

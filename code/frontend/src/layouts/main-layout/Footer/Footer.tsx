@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import { useBreakpoints } from 'providers/BreakpointsProvider';
 import { ReactElement } from 'react';
 
-const Footer = ({open}: { open: boolean }): ReactElement => {
+const Footer = ({open}: {open: boolean}): ReactElement => {
     const {down} = useBreakpoints();
 
     const isMobileScreen = down('sm');

@@ -8,7 +8,7 @@ import SimpleBar from 'simplebar-react';
 import { drawerCloseWidth, drawerOpenWidth } from '..';
 import NavItem from './NavItem';
 
-const Sidebar = ({open}: { open: boolean }): ReactElement => {
+const Sidebar = ({open}: {open: boolean}): ReactElement => {
     return (
         <>
             <Toolbar

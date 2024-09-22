@@ -46,7 +46,7 @@ const routes: RouteObject[] = [
     },
 ];
 
-const options: { basename: string } = {
+const options: {basename: string} = {
     basename: '/',
 };
 
