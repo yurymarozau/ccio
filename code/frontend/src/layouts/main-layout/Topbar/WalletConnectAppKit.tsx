@@ -1,22 +1,28 @@
 import { Stack } from '@mui/material';
 
-import { createWeb3Modal } from '@web3modal/wagmi/react'
+import { createAppKit } from '@reown/appkit/react';
 
-import { config as wagmiConfig } from 'helpers/wagmi/config';
+import { metadata, networks, wagmiAdapter } from 'helpers/wagmi/adapter';
 import React from 'react';
 
 const projectId = import.meta.env.FE_WALLETCONNECT_PROJECT_ID;
 
-createWeb3Modal(
-    {
-        wagmiConfig,
-        projectId,
-        enableSwaps: false,
-        enableOnramp: false,
-        allWallets: 'ONLY_MOBILE',
-    }
-);
-
+createAppKit({
+    adapters: [wagmiAdapter],
+    projectId: projectId,
+    networks: networks,
+    metadata: metadata,
+    allWallets: 'ONLY_MOBILE',
+    features: {
+        swaps: false,
+        onramp: false,
+        email: false,
+        socials: false,
+    },
+    enableWalletConnect: false,
+    enableInjected: false,
+    enableCoinbase: false,
+});
 
 class WalletConnectAppKit extends React.Component {
     render() {

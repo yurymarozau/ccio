@@ -1,0 +1,50 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
+import { baseSepolia, sepolia } from '@reown/appkit/networks'
+import React from 'react';
+import { http, WagmiProvider } from 'wagmi';
+import { injected, walletConnect } from 'wagmi/connectors';
+
+const queryClient = new QueryClient();
+const projectId = import.meta.env.FE_WALLETCONNECT_PROJECT_ID;
+
+export const metadata = {
+    name: 'CCIO',
+    description: 'CCIO - Crypto Chart IO',
+    url: 'ccio',
+    icons: [],
+};
+
+export const networks = [baseSepolia, sepolia]
+
+export const wagmiAdapter = new WagmiAdapter({
+    networks: networks,
+    projectId: projectId,
+    // transports: {
+    //     [sepolia.id]: http(),
+    // },
+    // connectors: [
+    //     injected({
+    //         shimDisconnect: false
+    //     }),
+    //     walletConnect({
+    //         projectId,
+    //         metadata,
+    //         showQrModal: true
+    //     }),
+    // ],
+});
+
+
+export class AppKitProvider extends React.Component {
+    render() {
+        return (
+            <WagmiProvider
+                config={wagmiAdapter.wagmiConfig}
+                reconnectOnMount={true}
+            >
+                <QueryClientProvider client={queryClient}>{this.props.children}</QueryClientProvider>
+            </WagmiProvider>
+        )
+    }
+}

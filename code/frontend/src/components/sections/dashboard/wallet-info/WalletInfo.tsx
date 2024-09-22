@@ -17,10 +17,10 @@ function WalletInfoFunction() {
     const { isConnected, address, chainId } = useAccount();
     useAccountEffect({
         onConnect(data) {
-            axios.get('/api/');
+            // axios.get('/api/');
         },
         onDisconnect() {
-            axios.get('/api/v1/health-check/');
+            // axios.get('/api/v1/health-check/');
         },
     });
     return (

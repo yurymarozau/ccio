@@ -1,4 +1,4 @@
-import { AppKitProvider } from 'helpers/wagmi/config.tsx';
+import { AppKitProvider } from 'helpers/wagmi/adapter.tsx';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
