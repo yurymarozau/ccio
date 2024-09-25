@@ -1,7 +1,8 @@
+import arrow
 import siwe
 from django.http import JsonResponse
-from rest_framework import permissions, status
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework import permissions
+from rest_framework.exceptions import AuthenticationFailed, NotAuthenticated
 
 from api.base.views import BaseAPIView
 from api.v1.auth.web3.siwe.serializers import SiweMessageSerializer, SiweSessionSerializer
@@ -26,6 +27,7 @@ class VerifySiweMessageAPIView(BaseAPIView):
                 address=siwe_message.address,
                 chain_id=siwe_message.chain_id,
             )
+            request.session.set_expiry(arrow.get(siwe_message.expiration_time).datetime)
             request.session.save()
         except:
             raise AuthenticationFailed()
@@ -37,7 +39,10 @@ class SiweSessionAPIView(BaseAPIView):
     serializer_class = SiweSessionSerializer
 
     def get(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.session.get('siwe', {}))
+        siwe = request.session.get('siwe')
+        if not siwe:
+            raise NotAuthenticated()
+        serializer = self.get_serializer(data=siwe)
         return JsonResponse(serializer.initial_data)
 
 
