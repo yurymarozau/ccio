@@ -90,6 +90,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 AUTH_USER_MODEL = 'apps.User'
 
+AUTHENTICATION_BACKENDS = [
+    'apps.common.auth_backends.WalletBackend',
+]
+
 # ACCESS_TOKEN_LIFETIME = config('ACCESS_TOKEN_LIFETIME', cast=int)
 # REFRESH_TOKEN_LIFETIME = config('REFRESH_TOKEN_LIFETIME', cast=int)
 # SIMPLE_JWT = {
