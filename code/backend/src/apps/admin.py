@@ -6,3 +6,4 @@ WARNING:
 
 
 from apps.users import admin as _users_admin
+from apps.wallets import admin as _wallets_admin

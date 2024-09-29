@@ -91,6 +91,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'apps.User'
 
 AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
     'apps.common.auth_backends.WalletBackend',
 ]
 
