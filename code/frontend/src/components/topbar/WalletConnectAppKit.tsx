@@ -1,9 +1,9 @@
 import { Stack } from '@mui/material';
 
 import { createAppKit } from '@reown/appkit/react';
-import { createSIWE } from 'helpers/auth/siwe.tsx';
+import { createSIWE } from 'components/topbar/siwe';
 
-import { metadata, networks, wagmiAdapter } from 'helpers/wagmi/adapter';
+import { metadata, networks, wagmiAdapter } from 'providers/WagmiContextProvider';
 
 const projectId = import.meta.env.FE_WALLETCONNECT_PROJECT_ID;
 

@@ -1,4 +1,4 @@
-import { WagmiContextProvider } from 'helpers/wagmi/adapter.tsx';
+import { WagmiContextProvider } from 'providers/WagmiContextProvider';
 import { Outlet } from 'react-router-dom';
 
 export default function App() {
