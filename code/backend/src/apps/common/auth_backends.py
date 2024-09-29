@@ -2,10 +2,10 @@ import uuid
 
 import siwe
 from django.contrib.auth.backends import BaseBackend
-from django.contrib.auth.models import User
 
+from apps.users.models import User
 from apps.wallets.choices import WalletType
-from apps.wallets.models import LoginWallet
+from apps.wallets.models import LoginWallet, Wallet
 
 
 class WalletBackend(BaseBackend):
@@ -19,7 +19,11 @@ class WalletBackend(BaseBackend):
         except siwe.VerificationError:
             return
 
-        login_wallet = LoginWallet.objects.filter(address=siwe_message.address).first()
+        wallet, _ = Wallet.objects.get_or_create(
+            public_address=siwe_message.address,
+            type=WalletType.EVM
+        )
+        login_wallet = LoginWallet.objects.filter(wallet=wallet).first()
         if login_wallet:
             user = User.objects.get(login_wallets_rel=login_wallet)
         else:
@@ -28,11 +32,9 @@ class WalletBackend(BaseBackend):
             user.save()
             LoginWallet.objects.create(
                 user=user,
-                address=siwe_message.address,
-                type=WalletType.EVM
+                wallet=wallet
             )
         return user
-
 
     def get_user(self, user_id):
         return User.objects.get(pk=user_id)
