@@ -1,6 +1,6 @@
 import { Button, Paper, Typography } from '@mui/material';
-import { useAccount } from 'wagmi';
 import axios from 'axios-config';
+import { useAccount } from 'wagmi';
 
 
 function WalletInfoFunction() {
