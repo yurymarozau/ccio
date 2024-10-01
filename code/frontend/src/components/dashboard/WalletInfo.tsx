@@ -1,30 +1,11 @@
 import { Button, Paper, Typography } from '@mui/material';
+import { useAccount } from 'wagmi';
+import axios from 'axios-config';
 
-import { useAccount, useAccountEffect, useSignMessage } from 'wagmi'
-
-
-async function handleSignMessage({signMessageAsync}) {
-    let response: any = await signMessageAsync({
-        message: Date.now().toString(),
-    });
-    console.log(response);
-}
 
 function WalletInfoFunction() {
-    const {signMessageAsync} = useSignMessage();
     const {isConnected, address, chainId} = useAccount();
-    useAccountEffect({
-        onConnect(data) {
-            // axios.get('/api/v1/auth/web3/siwe/nonce/').then(
-            //     (response) => {
-            //         console.log(response.ok);
-            //     }
-            // );
-        },
-        onDisconnect() {
-            // axios.get('/api/v1/health-check/');
-        },
-    });
+
     return (
         <>
             <div>
@@ -34,10 +15,9 @@ function WalletInfoFunction() {
                         <p>Chain ID: {chainId}</p>
                         <br/>
                         <div>
-                            <Button onClick={() => handleSignMessage({signMessageAsync})}>Sign</Button>
+                            <Button onClick={() => axios.get('/api/v1/auth/web3/siwe/session/')}>Get session</Button>
                         </div>
                     </div>
-
                 ) : (
                     <p>Not connected</p>
                 )}
