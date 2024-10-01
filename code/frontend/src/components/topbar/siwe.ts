@@ -6,7 +6,7 @@ import {
     type SIWESession,
     type SIWEVerifyMessageArgs,
 } from '@reown/appkit-siwe';
-import axios from 'axios';
+import axios from 'axios-config';
 import { SiweMessage } from 'siwe';
 
 const getMessageParams = async (chains: [number]): Promise<SIWEMessageArgs> => {
@@ -28,7 +28,7 @@ const getNonce = async (): Promise<string> => {
         const {data} = await axios.get('/api/v1/auth/web3/siwe/nonce/');
         return data.nonce;
     } catch (error) {
-        console.error(error);
+        return null;
     }
 }
 
@@ -44,12 +44,12 @@ const verifyMessage = async ({message, signature}: SIWEVerifyMessageArgs): Promi
     }
 }
 
-const getSession = async (): Promise<SIWESession> => {
+export const getSession = async (): Promise<SIWESession> => {
     try {
         const {data} = await axios.get('/api/v1/auth/web3/siwe/session/');
         return data == {} ? null : {address: data.address, chainId: data.chain_id} as SIWESession;
     } catch (error) {
-        console.error(error);
+        return null;
     }
 }
 
@@ -58,7 +58,7 @@ const signOut = async (): Promise<boolean> => {
         const {data} = await axios.get('/api/v1/auth/web3/siwe/signout/');
         return data == {};
     } catch (error) {
-        console.error(error);
+        return false;
     }
 }
 
@@ -72,9 +72,9 @@ export const createSIWE = (chains: [number]) => {
         createMessage: ({address, ...args}: SIWECreateMessageArgs) => {
             return formatMessage(args, address)
         },
-        getNonce,
-        getSession,
-        verifyMessage,
-        signOut,
+        getNonce: getNonce,
+        getSession: getSession,
+        verifyMessage: verifyMessage,
+        signOut: signOut,
     });
 }
