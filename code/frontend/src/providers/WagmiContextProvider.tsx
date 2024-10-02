@@ -1,11 +1,11 @@
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { arbitrum, baseSepolia, sepolia } from '@reown/appkit/networks'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider } from 'wagmi';
-import { injected, walletConnect } from 'wagmi/connectors';
 
 import { createAppKit } from '@reown/appkit/react';
-import { createSIWE } from 'components/topbar/siwe';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createSIWE } from 'utils/siwe';
+import { WagmiProvider } from 'wagmi';
+import { injected, walletConnect } from 'wagmi/connectors';
 
 const queryClient = new QueryClient();
 const projectId = import.meta.env.FE_WALLETCONNECT_PROJECT_ID;
