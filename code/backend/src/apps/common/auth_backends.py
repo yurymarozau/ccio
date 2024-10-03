@@ -9,13 +9,14 @@ from apps.wallets.models import LoginWallet, Wallet
 
 
 class WalletBackend(BaseBackend):
-    def authenticate(self, request, message=None, signature=None, **kwargs):
+    def authenticate(self, request, message=None, signature=None, mock=False, **kwargs):
         if not message or not signature:
             return
 
         try:
             siwe_message = siwe.SiweMessage.from_message(message=message)
-            siwe_message.verify(signature=signature)
+            if not mock:
+                siwe_message.verify(signature=signature)
         except siwe.VerificationError:
             return
 

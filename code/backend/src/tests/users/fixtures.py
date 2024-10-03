@@ -2,6 +2,8 @@ import random
 
 import pytest
 
+from tests.common.fixtures import *
+
 
 @pytest.fixture
 def user(user_model_factory):
