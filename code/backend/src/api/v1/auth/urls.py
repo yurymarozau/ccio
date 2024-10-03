@@ -1,6 +1,6 @@
 from django.urls import include, re_path
 
-from api.v1.auth.jwt import urls as jwt_urls
+# from api.v1.auth.jwt import urls as jwt_urls
 from api.v1.auth.web3 import urls as web3_urls
 
 urlpatterns = [

@@ -6,7 +6,8 @@ from rest_framework import permissions
 from rest_framework.exceptions import AuthenticationFailed
 
 from api.base.views import BaseAPIView
-from api.v1.auth.web3.siwe.serializers import SiweMessageSerializer, SiweSessionSerializer
+from api.v1.auth.web3.siwe.serializers import (SiweMessageSerializer,
+                                               SiweSessionSerializer)
 
 
 class GenerateNonceAPIView(BaseAPIView):
