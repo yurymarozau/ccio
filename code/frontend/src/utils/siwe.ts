@@ -38,7 +38,7 @@ const verifyMessage = async ({message, signature}: SIWEVerifyMessageArgs): Promi
             message: message,
             signature: signature,
         });
-        return data.verify === true;
+        return data.is_verified === true;
     } catch (error) {
         return false;
     }

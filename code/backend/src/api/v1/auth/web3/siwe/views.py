@@ -41,7 +41,7 @@ class VerifySiweMessageAPIView(BaseAPIView):
         request.session.set_expiry(arrow.get(siwe_message.expiration_time).datetime)
         request.session.save()
 
-        return JsonResponse(dict(verify=True))
+        return JsonResponse(dict(is_verified=True))
 
 
 class SiweSessionAPIView(BaseAPIView):
