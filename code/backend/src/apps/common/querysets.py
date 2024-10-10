@@ -2,13 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 
-class SoftDeleteQuerySet(models.QuerySet):
-    def delete(self):
-        return super().update(deleted_at=timezone.now())
-
-    def hard_delete(self):
-        return super().delete()
-
+class HardDeleteQuerySet(models.QuerySet):
     def restore(self):
         return super().update(deleted_at=None)
 
@@ -17,3 +11,11 @@ class SoftDeleteQuerySet(models.QuerySet):
 
     def deleted(self):
         return self.exclude(deleted_at=None)
+
+
+class SoftDeleteQuerySet(HardDeleteQuerySet):
+    def delete(self):
+        return super().update(deleted_at=timezone.now())
+
+    def hard_delete(self):
+        return super().delete()

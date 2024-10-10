@@ -1,5 +1,3 @@
-import datetime
-
 from decouple import config
 
 SECRET_KEY = config('DJANGO_SECRET_KEY')
@@ -14,15 +12,15 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.messages',
 
     # Project apps
     'apps.config.AppsConfig',
 
     # Dependencies
     'rest_framework',
-    'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt',
 
     'channels',
 
@@ -37,17 +35,13 @@ if DEBUG:
     ]
 
 MIDDLEWARE = [
-    'apps.common.middlewares.MonitoringLongTimeQueriesMiddleware',
     'apps.common.middlewares.TrailingSlashAppendingMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'apps.common.middlewares.ValidationErrorsToSentryMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -74,7 +68,7 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
 }
 
@@ -94,13 +88,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 AUTH_USER_MODEL = 'apps.User'
 
-ACCESS_TOKEN_LIFETIME = config('ACCESS_TOKEN_LIFETIME', cast=int)
-REFRESH_TOKEN_LIFETIME = config('REFRESH_TOKEN_LIFETIME', cast=int)
-SIMPLE_JWT = {
-    'USER_ID_FIELD': 'uuid',
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=ACCESS_TOKEN_LIFETIME),
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(minutes=REFRESH_TOKEN_LIFETIME),
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
-    'AUTH_HEADER_TYPES': ('JWT',)
-}
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'apps.common.auth_backends.WalletBackend',
+]
+
+# ACCESS_TOKEN_LIFETIME = config('ACCESS_TOKEN_LIFETIME', cast=int)
+# REFRESH_TOKEN_LIFETIME = config('REFRESH_TOKEN_LIFETIME', cast=int)
+# SIMPLE_JWT = {
+#     'USER_ID_FIELD': 'uuid',
+#     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=ACCESS_TOKEN_LIFETIME),
+#     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(minutes=REFRESH_TOKEN_LIFETIME),
+#     'ALGORITHM': 'HS256',
+#     'SIGNING_KEY': SECRET_KEY,
+#     'AUTH_HEADER_TYPES': ('JWT',)
+# }

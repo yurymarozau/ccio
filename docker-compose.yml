@@ -1,9 +1,25 @@
-version: '3.8'
-
 services:
+  web-ui:
+    container_name: web-ui
+    image: ccio-web-ui
+    platform: linux/amd64
+    build:
+      context: ./code/frontend
+      args:
+        APP_USER: ${APP_USER}
+        APP_DIR: ${APP_DIR}
+    volumes:
+      - node_modules:${APP_DIR}/node_modules
+      - ./code/frontend/:${APP_DIR}/
+    env_file: ./.env
+    command: ['./scripts/start_local.sh']
+    ports:
+      - '5173:5173'
+
   api:
     container_name: api
     image: ccio-api
+    platform: linux/amd64
     build:
       context: ./code/backend
       args:
@@ -12,9 +28,7 @@ services:
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    entrypoint: []
-    command: ['./wait-for-it.sh', '${DATABASE_HOST}:${DATABASE_PORT}', '--timeout=${WFI_TIMEOUT}', '--',
-              'python3', 'manage.py', 'runserver', '0.0.0.0:8000']
+    command: ['./scripts/start_local.sh']
     ports:
       - '8000:8000'
     depends_on:
@@ -22,17 +36,21 @@ services:
       - redis
 
   redis:
-    image: redis:7-alpine
     container_name: redis
+    image: redis:7.4-alpine
+    platform: linux/amd64
+    command: --port ${REDIS_PORT}
     volumes:
       - redis_data:/data
     env_file: ./.env
     ports:
-      - '6379:6379'
+      - '${REDIS_PORT}:${REDIS_PORT}'
 
   db:
     container_name: db
-    image: postgres:15.1-alpine
+    image: postgres:16.4-alpine
+    platform: linux/amd64
+    command: -p ${DATABASE_PORT}
     shm_size: 2g
     privileged: true
     volumes:
@@ -46,34 +64,18 @@ services:
       - POSTGRES_HOST=${DATABASE_HOST}
       - POSTGRES_PORT=${DATABASE_PORT}
     ports:
-      - '5432:5432'
+      - '${DATABASE_PORT}:${DATABASE_PORT}'
 
   db-migrator:
     container_name: db-migrator
     image: ccio-api
+    platform: linux/amd64
     build:
       context: ./code/backend
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    entrypoint: []
-    command: ['./wait-for-it.sh', '${DATABASE_HOST}:${DATABASE_PORT}', '--timeout=${WFI_TIMEOUT}', '--',
-              'python3', 'manage.py', 'migrate']
-    depends_on:
-      - db
-      - redis
-
-  collectstatic:
-    container_name: collectstatic
-    image: ccio-api
-    build:
-      context: ./code/backend
-    volumes:
-      - ./code/backend/src/:${APP_DIR}/
-    env_file: ./.env
-    entrypoint: []
-    command: ['./wait-for-it.sh', '${DATABASE_HOST}:${DATABASE_PORT}', '--timeout=${WFI_TIMEOUT}', '--',
-              'python3', 'manage.py', 'collectstatic', '--noinput']
+    command: ['./scripts/migrate.sh']
     depends_on:
       - db
       - redis
@@ -81,14 +83,13 @@ services:
   worker:
     container_name: worker
     image: ccio-api
+    platform: linux/amd64
     build:
       context: ./code/backend
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    entrypoint: []
-    command: ['./wait-for-it.sh', '${DATABASE_HOST}:${DATABASE_PORT}', '--timeout=${WFI_TIMEOUT}', '--',
-              'celery', '-A', 'config.celery', 'worker', '-Q', 'low']
+    command: ['celery', '-A', 'config.celery', 'worker', '-Q', 'low']
     depends_on:
       - db
       - redis
@@ -96,14 +97,13 @@ services:
   beat:
     container_name: beat
     image: ccio-api
+    platform: linux/amd64
     build:
       context: ./code/backend
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    entrypoint: []
-    command: ['./wait-for-it.sh', '${DATABASE_HOST}:${DATABASE_PORT}', '--timeout=${WFI_TIMEOUT}', '--',
-              'celery', '-A', 'config.celery', 'beat', '-l', 'INFO']
+    command: ['celery', '-A', 'config.celery', 'beat', '-l', 'INFO']
     depends_on:
       - db
       - redis
@@ -111,12 +111,12 @@ services:
   flower:
     container_name: flower
     image: ccio-api
+    platform: linux/amd64
     build:
       context: ./code/backend
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    entrypoint: []
     command: ['celery', '-A', 'config.celery.celery', 'flower']
     ports:
       - '5555:5555'
@@ -126,16 +126,13 @@ services:
   test:
     container_name: test
     image: ccio-api
+    platform: linux/amd64
     build:
       context: ./code/backend
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    entrypoint: []
-    command: ['./wait-for-it.sh', '${DATABASE_HOST}:${DATABASE_PORT}', '--timeout=${WFI_TIMEOUT}', '--',
-              'pytest']
-    ports:
-      - '8000:8000'
+    command: ['pytest']
     depends_on:
       - db
       - redis
@@ -144,3 +141,4 @@ volumes:
   db_data:
     name: ccio_db_data_$DATABASE_ENVIRONMENT
   redis_data:
+  node_modules:

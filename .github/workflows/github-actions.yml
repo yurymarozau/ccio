@@ -13,6 +13,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Create .env file
         run: cp example.env .env
+      - name: Build image
+        run: docker compose build api
       - name: Start migrations
         run: docker compose up db-migrator --exit-code-from db-migrator
       - name: Start tests

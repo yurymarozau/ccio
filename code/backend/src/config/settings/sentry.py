@@ -21,6 +21,7 @@ if config('USE_SENTRY', default=False, cast=bool):
             ),
         ],
         send_default_pii=True,
-        environment=config('ENVIRONMENT')
+        environment=config('ENVIRONMENT'),
+        traces_sample_rate=1.0,
     )
     sentry_sdk.utils.MAX_STRING_LENGTH = 10000

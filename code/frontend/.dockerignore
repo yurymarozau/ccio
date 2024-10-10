@@ -1,0 +1,31 @@
+# PyCharm project files
+/.idea
+
+# app logs
+*.log
+
+# bash scripts
+*.sh
+!scripts/*.sh
+
+# code analysis reports
+/coverage_html_report
+/.coverage
+ca_report_*.txt
+
+# docker related files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# environment
+.env
+/venv*/*
+/.venv/
+
+# other files
+*.pid
+/*.xlsx
+/*.html
+.DS_Store
+*.patch

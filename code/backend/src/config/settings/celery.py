@@ -1,6 +1,6 @@
 from decouple import config
 
-CELERY_BROKER_URL = f'redis://{config("BROKER_HOST")}:{config("BROKER_PORT")}/{config("BROKER_DB")}'
+CELERY_BROKER_URL = f'redis://{config("REDIS_HOST")}:{config("REDIS_PORT")}/{config("BROKER_DB")}'
 
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'

@@ -7,3 +7,4 @@ WARNING:
 
 
 from apps.users import models as _users_models
+from apps.wallets import models as _wallets_models

@@ -1,0 +1,41 @@
+# PyCharm project files
+/.idea
+
+# backups (usefull for development with Docker)
+docker/backups/*/*
+!docker/backups/*/a_create_all_roles.sql
+
+# app logs
+*.log
+
+# bash scripts
+*.sh
+!scripts/*.sh
+
+# code analysis reports
+/coverage_html_report
+/.coverage
+ca_report_*.txt
+
+# docker related files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# SQL
+*.sql
+
+# environment
+.env
+/venv*/*
+/.venv/
+
+# other files
+*localhost.py
+*.pyc
+*.pid
+/*.xlsx
+/*.html
+celerybeat-schedule
+.DS_Store
+*.patch
