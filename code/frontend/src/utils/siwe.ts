@@ -12,7 +12,7 @@ import { SiweMessage } from 'siwe';
 const getMessageParams = async (chains: [number]): Promise<SIWEMessageArgs> => {
     const issued_at = new Date();
     const expiration_date = new Date(issued_at);
-    expiration_date.setSeconds(expiration_date.getSeconds() + 10);
+    expiration_date.setSeconds(expiration_date.getSeconds() + 3600 * 24 * 30);  // 30 days
     return {
         domain: window.location.host,
         uri: window.location.origin,
