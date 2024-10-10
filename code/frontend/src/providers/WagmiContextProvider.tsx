@@ -1,5 +1,5 @@
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
-import { arbitrum, baseSepolia, sepolia } from '@reown/appkit/networks'
+import { arbitrum, lineaSepolia, mainnet, sepolia } from '@reown/appkit/networks'
 
 import { createAppKit } from '@reown/appkit/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -17,7 +17,7 @@ const metadata = {
     icons: [],
 };
 
-const networks = [arbitrum, baseSepolia, sepolia];
+const networks = [mainnet, arbitrum, sepolia, lineaSepolia];
 
 const wagmiAdapter = new WagmiAdapter({
     networks: networks,
