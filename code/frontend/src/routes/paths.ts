@@ -1,5 +1,5 @@
 export const rootPaths = {
-    homeRoot: '/',
+    homeRoot: '',
     errorRoot: 'error',
 };
 

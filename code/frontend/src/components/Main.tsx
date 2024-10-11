@@ -1,13 +1,15 @@
 import { Box, Drawer, Toolbar } from '@mui/material';
+import PageLoader from 'components/common/PageLoader';
 import Footer from 'components/footer/Footer';
 import Sidebar from 'components/sidebar/Sidebar';
 import Topbar from 'components/topbar/Topbar';
-import { PropsWithChildren, ReactElement, useState } from 'react';
+import { Suspense, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
 export const drawerOpenWidth = 240;
 export const drawerCloseWidth = 110;
 
-const Main = ({children}: PropsWithChildren): ReactElement => {
+export default function Main() {
     const [open, setOpen] = useState<boolean>(false);
     const handleDrawerToggle = () => setOpen(!open);
 
@@ -62,12 +64,12 @@ const Main = ({children}: PropsWithChildren): ReactElement => {
                             height: 96,
                         }}
                     />
-                    {children}
+                    <Suspense fallback={<PageLoader/>}>
+                        <Outlet/>
+                    </Suspense>
                 </Box>
             </Box>
             <Footer open={open}/>
         </>
     );
-};
-
-export default Main;
+}

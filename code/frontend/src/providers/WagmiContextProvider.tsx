@@ -50,9 +50,6 @@ createAppKit({
         socials: false,
     },
     siweConfig: siweConfig,
-    enableWalletConnect: false,
-    enableInjected: false,
-    enableCoinbase: false,
 });
 
 export function WagmiContextProvider({children}) {
