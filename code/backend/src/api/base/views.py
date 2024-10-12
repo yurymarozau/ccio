@@ -1,11 +1,12 @@
 from django.utils.functional import cached_property
 from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated
 
 from api.base.serializers import BaseSerializer
 
 
-class BaseAPIView(GenericAPIView):
+class BaseAPIView(ListModelMixin, RetrieveModelMixin, GenericAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = BaseSerializer
 

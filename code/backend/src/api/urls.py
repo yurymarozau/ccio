@@ -5,8 +5,6 @@ from api import views
 from api.docs import urlpatterns as docs_urlpatterns
 from api.v1 import urls as v1_urls
 
-app_name = 'api'
-
 urlpatterns = [
     path('v1/', include(v1_urls.urlpatterns)),
     path('', views.ApiInfoAPIView.as_view()),
