@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from apps.portfolio.models import Portfolio, PortfolioWallet
 from apps.wallets.models import Wallet
+from apps.wallets.services import WalletModelService
 
 
 class WalletSerializer(serializers.ModelSerializer):
@@ -12,7 +13,7 @@ class WalletSerializer(serializers.ModelSerializer):
         read_only_fields = ('pk', 'type', 'balance',)
 
     def get_balance(self, wallet):
-        return 0
+        return WalletModelService(wallet).balance
 
 
 class PortfolioWalletSerializer(serializers.ModelSerializer):
