@@ -6,6 +6,7 @@ WARNING:
 """
 
 
+from apps.chains import models as _chains_models
 from apps.users import models as _users_models
 from apps.portfolio import models as _portfolio_models
 from apps.wallets import models as _wallets_models

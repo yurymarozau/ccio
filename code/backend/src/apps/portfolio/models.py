@@ -1,7 +1,6 @@
 from django.db import models
 
 from apps.common.models import AbstractBaseModel
-from apps.wallets.models import Wallet
 
 
 class Portfolio(AbstractBaseModel):
