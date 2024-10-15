@@ -7,14 +7,14 @@ class Chain(AbstractBaseModel):
     name = models.CharField(max_length=255)
     short_name = models.CharField(max_length=32)
     chain_id = models.PositiveBigIntegerField(unique=True)
-    network_id = models.PositiveBigIntegerField(unique=True)
-    info_url = models.URLField()
+    network_id = models.PositiveBigIntegerField()
+    info_url = models.URLField(max_length=2048)
     is_enabled = models.BooleanField(default=True)
 
     gecko_id = models.CharField(max_length=255)
-    gecko_logo_thumb_url = models.URLField(null=True)
-    gecko_logo_small_url = models.URLField(null=True)
-    gecko_logo_large_url = models.URLField(null=True)
+    gecko_logo_thumb_url = models.URLField(max_length=2048, null=True)
+    gecko_logo_small_url = models.URLField(max_length=2048, null=True)
+    gecko_logo_large_url = models.URLField(max_length=2048, null=True)
 
     def __str__(self):
         return (
@@ -27,7 +27,7 @@ class Chain(AbstractBaseModel):
 
 class ChainRPC(AbstractBaseModel):
     chain = models.ForeignKey('apps.Chain', related_name='rpcs_rel', on_delete=models.CASCADE)
-    url = models.URLField(unique=True)
+    url = models.URLField(max_length=2048, unique=True)
 
     is_enabled = models.BooleanField(default=True)
     weight = models.PositiveSmallIntegerField(default=0)
@@ -43,17 +43,16 @@ class ChainRPC(AbstractBaseModel):
 class Token(AbstractBaseModel):
     chain = models.ForeignKey('apps.Chain', related_name='tokens_rel', on_delete=models.CASCADE)
     is_native = models.BooleanField(default=False)
-    address = models.CharField(max_length=64, unique=True)
+    address = models.CharField(max_length=128, null=True)  # native tokens don't have an address
     name = models.CharField(max_length=255)
     symbol = models.CharField(max_length=32)
     decimals = models.PositiveSmallIntegerField(default=18)
-    logo_uri = models.URLField()
+    logo_uri = models.URLField(max_length=2048, null=True)
 
     is_enabled = models.BooleanField(default=True)
 
     class Meta:
         unique_together = (
-            ('chain', 'is_native'),
             ('chain', 'address'),
         )
 

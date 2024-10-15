@@ -80,8 +80,8 @@ services:
       - db
       - redis
 
-  worker:
-    container_name: worker
+  celery-worker-general:
+    container_name: celery-worker-general
     image: ccio-api
     platform: linux/amd64
     build:
@@ -89,13 +89,13 @@ services:
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    command: ['celery', '-A', 'config.celery', 'worker', '-Q', 'low']
+    command: ['./scripts/start_celery_worker_general.sh']
     depends_on:
       - db
       - redis
 
-  beat:
-    container_name: beat
+  celery-beat:
+    container_name: celery-beat
     image: ccio-api
     platform: linux/amd64
     build:
@@ -103,13 +103,13 @@ services:
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    command: ['celery', '-A', 'config.celery', 'beat', '-l', 'INFO']
+    command: ['./scripts/start_celery_beat.sh']
     depends_on:
       - db
       - redis
 
-  flower:
-    container_name: flower
+  celery-flower:
+    container_name: celery-flower
     image: ccio-api
     platform: linux/amd64
     build:
@@ -117,10 +117,11 @@ services:
     volumes:
       - ./code/backend/src/:${APP_DIR}/
     env_file: ./.env
-    command: ['celery', '-A', 'config.celery.celery', 'flower']
+    command: ['./scripts/start_celery_flower.sh']
     ports:
       - '5555:5555'
     depends_on:
+      - db
       - redis
 
   test:

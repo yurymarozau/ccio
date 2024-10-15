@@ -1,20 +1,38 @@
 from decouple import config
+from celery import Celery
+from celery.schedules import crontab
 
-CELERY_BROKER_URL = f'redis://{config("REDIS_HOST")}:{config("REDIS_PORT")}/{config("BROKER_DB")}'
+celery_app = Celery(config('APP_NAME'))
 
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
-CELERY_ENABLE_UTC = True
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_TASK_DEFAULT_QUEUE = 'low'
 
-CELERY_IMPORTS = (
-    # 'apps.exampleapp.routines',
-)
+class Config:
+    enable_utc = True
+    timezone = 'UTC'
+    broker_url = f'redis://{config("REDIS_HOST")}:{config("REDIS_PORT")}/{config("BROKER_DB")}'
+    result_backend = 'django-db'
+    result_serializer = 'json'
+    result_extended = True
+    result_expires = None
+    accept_content = ('json',)
+    broker_connection_retry_on_startup = True
+    task_track_started = True
+    task_serializer = 'json'
 
-CELERY_TASK_ROUTES = {
-    # example
-    # 'apps.exampleapp.routines.PeriodicExampleTask': {'queue': 'low'},
-}
+    task_default_queue = 'general'
+    task_routes = {
+        'apps.chains.tasks.UpdateChainsListTask': {'queue': 'general'},
+        'apps.chains.tasks.UpdateTokensTask': {'queue': 'general'},
+    }
+
+    imports = (
+        'apps.chains.tasks',
+    )
+
+    beat_schedule = {
+        'apps.chains.tasks.UpdateChainsListTask': {
+            'task': 'apps.chains.tasks.UpdateChainsListTask',
+            'schedule': crontab(minute='0', hour='0')
+        },
+    }
+
+celery_app.config_from_object(Config)

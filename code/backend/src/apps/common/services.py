@@ -8,8 +8,8 @@ class BaseModelService(ABC):
     def __init__(self, instance: AbstractBaseModel):
         self._instance = instance
 
-    @abstractmethod
     @property
+    @abstractmethod
     def model(self) -> Type[AbstractBaseModel]:
         pass
 

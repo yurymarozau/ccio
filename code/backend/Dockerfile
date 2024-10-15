@@ -33,9 +33,24 @@ RUN chmod +x  \
     ${APP_DIR}/scripts/wait-for-it.sh \
     ${APP_DIR}/scripts/migrate.sh \
     ${APP_DIR}/scripts/start_local.sh \
-    ${APP_DIR}/scripts/start.sh
+    ${APP_DIR}/scripts/start.sh \
+    ${APP_DIR}/scripts/start_celery_beat.sh \
+    ${APP_DIR}/scripts/start_celery_flower.sh \
+    ${APP_DIR}/scripts/start_celery_worker_general.sh
 
-# Install python requirements
+
+RUN /bin/bash -c 'set -euo pipefail \
+    && PRE_RUN_DEPS=" \
+    " \
+    && apt-get update && apt-get install -y --no-install-recommends $PRE_RUN_DEPS \
+    \
+    && RUN_DEPS=" \
+    " \
+    && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $PRE_RUN_DEPS \
+    && rm -rf /var/lib/apt/lists/*'
+
+
 RUN /bin/bash -c 'set -euo pipefail \
     && BUILD_DEPS=" \
     gcc \
