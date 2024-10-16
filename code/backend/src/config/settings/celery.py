@@ -1,6 +1,6 @@
-from decouple import config
 from celery import Celery
 from celery.schedules import crontab
+from decouple import config
 
 celery_app = Celery(config('APP_NAME'))
 

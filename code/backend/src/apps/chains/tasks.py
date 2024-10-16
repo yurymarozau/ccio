@@ -98,13 +98,11 @@ class UpdateChainsListTask(BaseTask):
             )
         )
 
-
     def process_chain(self, chain_json, gecko_chain_json):
         with transaction.atomic():
             chain = self.update_chain(chain_json, gecko_chain_json)
             self.update_rpcs(chain_json['rpc'], chain)
         self.update_tokens(chain, chain_json['nativeCurrency'])
-
 
     def fetch_chains(self):
         chains_response = requests.get('https://chainid.network/chains_mini.json')
