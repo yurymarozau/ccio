@@ -1,5 +1,6 @@
 import requests
 from django.db import transaction
+from rest_framework import status
 
 from apps.chains.models import Chain, ChainRPC, Token
 from apps.common.tasks import BaseTask
@@ -7,11 +8,18 @@ from apps.common.utils.sentry_service import SentryService
 
 
 class UpdateTokensTask(BaseTask):
+    max_retries = 10
+    default_retry_delay = 15
+    rate_limit = '100/m'
+
     def custom_run(self, chain_pk, native_token_json):
         chain = Chain.objects.get(pk=chain_pk)
         gecko_tokens_response = requests.get(f'https://tokens.coingecko.com/{chain.gecko_id}/all.json')
-        gecko_tokens_json = gecko_tokens_response.json()['tokens']
-        self.process_tokens(chain, gecko_tokens_json, native_token_json)
+        if gecko_tokens_response.status_code == status.HTTP_429_TOO_MANY_REQUESTS:
+            raise gecko_tokens_response.raise_for_status()
+        elif gecko_tokens_response.status_code == status.HTTP_200_OK:
+            gecko_tokens_json = gecko_tokens_response.json()['tokens']
+            self.process_tokens(chain, gecko_tokens_json, native_token_json)
 
     @staticmethod
     def update_native_token(chain, native_token_json):

@@ -26,5 +26,4 @@ class BaseTask(Task, metaclass=MetaTask):
         try:
             return self.custom_run(*args, **kwargs)
         except Exception as exc:
-            raise exc
             raise self.retry(exc=exc)
