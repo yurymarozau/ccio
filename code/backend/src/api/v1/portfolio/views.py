@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from rest_framework import permissions
 
 from api.base.views import BaseAPIView

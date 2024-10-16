@@ -7,6 +7,7 @@ from apps.wallets.services import WalletModelService
 
 class WalletSerializer(serializers.ModelSerializer):
     balance = serializers.SerializerMethodField(method_name='get_balance')
+
     class Meta:
         model = Wallet
         fields = ('pk', 'public_address', 'type', 'balance',)
