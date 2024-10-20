@@ -22,10 +22,12 @@ class Config:
     task_routes = {
         'apps.chains.tasks.UpdateChainsListTask': {'queue': 'general'},
         'apps.chains.tasks.UpdateTokensTask': {'queue': 'general'},
+        'apps.portfolio.tasks.UpdatePortfolioWalletTokensBalance': {'queue': 'general'},
     }
 
     imports = (
         'apps.chains.tasks',
+        'apps.portfolio.tasks',
     )
 
     beat_schedule = {
